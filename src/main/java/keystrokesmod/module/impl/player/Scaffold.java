@@ -160,7 +160,7 @@ public class Scaffold extends Module {
                     yaw = mc.thePlayer.rotationYaw + 220;
                 } else {
                     if ((w && a && s && d) || (w && !a && !s && !d) || (w && !a && s && !d)) {
-                        yaw = mc.thePlayer.rotationYaw - 139;
+                        yaw = mc.thePlayer.rotationYaw - 120;
                     } else if (w && !a && !s && d) {
                         yaw = mc.thePlayer.rotationYaw + 185;
                     } else if (w && a && !s && !d) {
