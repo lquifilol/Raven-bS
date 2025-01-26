@@ -58,6 +58,14 @@ public class BHop extends Module {
         if (ModuleManager.bedAura.isEnabled() && ModuleManager.bedAura.disableBHop.isToggled() && ModuleManager.bedAura.currentBlock != null && RotationUtils.inRange(ModuleManager.bedAura.currentBlock, ModuleManager.bedAura.range.getInput())) {
             return;
         }
+        if (mc.gameSettings.keyBindBack.isKeyDown()) {
+            if (mc.thePlayer.onGround && autoJump.isToggled()) {
+                mc.thePlayer.jump();
+            }
+            Utils.setSpeed(Utils.getHorizontalSpeed() * 0.75); // Slow down less
+            hopping = true;
+            return;
+        }
         switch ((int) mode.getInput()) {
             case 0:
                 if (Utils.isMoving()) {
