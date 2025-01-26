@@ -30,7 +30,7 @@ public class Settings extends Module {
     public static SliderSetting offset;
     public static SliderSetting timeMultiplier;
     public static ButtonSetting sendMessage;
-    private String[] capes = new String[]{"None", "Anime", "Aqua", "Green", "Purple", "Red", "White", "Yellow", "Myau"};
+    private String[] capes = new String[]{"None", "Anime", "Aqua", "Green", "Purple", "Red", "White", "Yellow", "Myau", "Astolfo"};
     public static List<ResourceLocation> loadedCapes = new ArrayList<>();
 
     public Settings() {

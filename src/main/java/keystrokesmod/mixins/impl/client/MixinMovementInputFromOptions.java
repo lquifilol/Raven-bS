@@ -10,9 +10,6 @@ import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(value = MovementInputFromOptions.class, priority = 999)
 public class MixinMovementInputFromOptions extends MovementInput {
@@ -58,10 +55,7 @@ public class MixinMovementInputFromOptions extends MovementInput {
             this.moveStrafe = (float) ((double) this.moveStrafe * sneakMultiplier);
             this.moveForward = (float) ((double) this.moveForward * sneakMultiplier);
         }
-    }
 
-    @Inject(method = "updatePlayerMoveState", at = @At("RETURN"))
-    private void onUpdatePlayerMoveState(CallbackInfo ci) {
         MinecraftForge.EVENT_BUS.post(new PostPlayerInputEvent());
     }
 }

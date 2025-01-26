@@ -118,7 +118,6 @@ public abstract class MixinEntityPlayerSP extends AbstractClientPlayer {
 
     @Overwrite
     public void onUpdateWalkingPlayer() {
-        PreMotionEvent.setRenderYaw(false);
         PreMotionEvent preMotionEvent = new PreMotionEvent(
                 this.posX,
                 this.getEntityBoundingBox().minY,
