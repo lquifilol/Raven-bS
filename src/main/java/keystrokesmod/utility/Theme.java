@@ -26,10 +26,10 @@ public enum Theme {
     Minty_Fresh(new Color(62, 207, 119), new Color(86, 214, 214)), // 15
     Fireworks(new Color(255, 42, 0), new Color(255, 235, 59), new Color(255, 138, 0)), // 16
     Galaxy(new Color(61, 13, 117), new Color(0, 161, 214), new Color(0, 0, 0)), // 17
-    Candy_Cane(new Color(255, 0, 0), new Color(255, 255, 255), new Color(0, 255, 0)), // 18
+    Candy_Cane(new Color(255, 0, 0), new Color(255, 255, 255), new Color(255, 0, 0)), // 18
     Aurora(new Color(161, 161, 255), new Color(0, 153, 255), new Color(75, 0, 130)), // 19
-    Tropical_Punch(new Color(255, 58, 74), new Color(253, 203, 88), new Color(87, 193, 229)); // 20
-
+    Tropical_Punch(new Color(255, 58, 74), new Color(253, 203, 88), new Color(87, 193, 229)), // 20
+    Purple(new Color(157, 0, 255), new Color(191, 0, 255)); // 21
 
     private final Color firstGradient;
     private final Color secondGradient;
@@ -108,6 +108,6 @@ public enum Theme {
             "Rainbow", "Cherry", "Cotton candy", "Flare", "Flower", "Gold", "Grayscale",
             "Royal", "Sky", "Vine", "Astolfo",
             "Sunset", "Ocean Breeze", "Lime Punch", "Twilight", "Minty Fresh", "Fireworks",
-            "Galaxy", "Candy Cane", "Aurora", "Tropical Punch"
+            "Galaxy", "Candy Cane", "Aurora", "Tropical Punch", "Purple"
     };
 }

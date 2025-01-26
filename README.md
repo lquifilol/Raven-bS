@@ -1,10 +1,9 @@
-# Raven bS
+# Raven bS (fork)
 
-Raven B4, but for those who can't afford it, or too paranoid to get it. We highly value our user's privacy.
-
-Quality features like AntiFireball, ItemESP, and more. No Bloat, no junk, based off b3, with the help of b4 src.
+This fork of Raven bS has updated features, which are at the moment of me writing this only in beta.
+Some of these features are autoblock and 7 tick lowhop.
 
 ![image](https://github.com/user-attachments/assets/d2568078-6e45-46d7-8480-9f5d5eb6bc23)
 
 # Discord
-[https://discord.gg/ZWttByQD5N](https://discord.gg/ZWttByQD5N)
+[Join bS Discord!](https://discord.gg/ZWttByQD5N)
