@@ -21,6 +21,7 @@ public class BHop extends Module {
     private ButtonSetting liquidDisable;
     private ButtonSetting sneakDisable;
     private ButtonSetting stopMotion;
+    private ButtonSetting watchdogMode;
     private String[] modes = new String[]{"Strafe", "Ground", "7 tick"};
     public boolean hopping;
     private boolean collided, strafe, down;
@@ -33,6 +34,7 @@ public class BHop extends Module {
         this.registerSetting(disableInInventory = new ButtonSetting("Disable in inventory", true));
         this.registerSetting(liquidDisable = new ButtonSetting("Disable in liquid", true));
         this.registerSetting(sneakDisable = new ButtonSetting("Disable while sneaking", true));
+        this.registerSetting(watchdogMode = new ButtonSetting("Watchdog Mode", false));
     }
 
     @Override
@@ -58,12 +60,11 @@ public class BHop extends Module {
         if (ModuleManager.bedAura.isEnabled() && ModuleManager.bedAura.disableBHop.isToggled() && ModuleManager.bedAura.currentBlock != null && RotationUtils.inRange(ModuleManager.bedAura.currentBlock, ModuleManager.bedAura.range.getInput())) {
             return;
         }
-        if (mc.gameSettings.keyBindBack.isKeyDown()) {
+        if (watchdogMode.isToggled() && mc.gameSettings.keyBindBack.isKeyDown()) {
             if (mc.thePlayer.onGround && autoJump.isToggled()) {
                 mc.thePlayer.jump();
             }
-            Utils.setSpeed(Utils.getHorizontalSpeed() * 0.75); // Slow down less
-            hopping = true;
+            hopping = false;
             return;
         }
         switch ((int) mode.getInput()) {
