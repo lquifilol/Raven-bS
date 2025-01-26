@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(MovementInputFromOptions.class)
+@Mixin(value = MovementInputFromOptions.class, priority = 999)
 public class MixinMovementInputFromOptions extends MovementInput {
     @Shadow
     @Final
