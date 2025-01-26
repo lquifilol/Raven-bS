@@ -62,7 +62,7 @@ public class KillAura extends Module {
     private ButtonSetting silentSwing;
     private ButtonSetting weaponOnly;
 
-    private String[] autoBlockModes = new String[] { "Manual", "Vanilla", "Fake", "Partial", "Interact A", "Interact B", "Interact C", "Interact D", "Hypixel", "Buffer A", "Buffer B", "Buffer C"};
+    private String[] autoBlockModes = new String[] { "Manual", "Vanilla", "Fake", "Partial", "Interact A", "Interact B", "Buffer A", "Buffer B", "Buffer C"};
     private String[] rotationModes = new String[] { "Silent", "Lock view", "None" };
     private String[] sortModes = new String[] { "Distance", "Health", "Hurttime", "Yaw" };
 
@@ -635,9 +635,6 @@ public class KillAura extends Module {
             case 8:
                 Reflection.setItemInUse(this.blockingClient = blockState);
                 break;
-            case 11:
-                Reflection.setItemInUse(this.blockingClient = blockState);
-                break;
             case 3: // partial
                 if (!blockState) {
                     rightClick(partialDown = false);
@@ -675,7 +672,7 @@ public class KillAura extends Module {
     }
 
     public boolean blinkAutoBlock() {
-        return (autoBlockMode.getInput() == 4 || autoBlockMode.getInput() == 5 || autoBlockMode.getInput() == 6 || autoBlockMode.getInput() == 7 || autoBlockMode.getInput() == 8 || autoBlockMode.getInput() == 11);
+        return (autoBlockMode.getInput() == 4 || autoBlockMode.getInput() == 5 || autoBlockMode.getInput() == 6 || autoBlockMode.getInput() == 7 || autoBlockMode.getInput() == 8);
     }
 
     private float unwrapYaw(float yaw, float prevYaw) {
@@ -836,28 +833,7 @@ public class KillAura extends Module {
                         break;
                 }
                 break;
-            case 8: // hypixel
-                if (interactTicks >= 3) {
-                    interactTicks = 0;
-                }
-                interactTicks++;
-                switch (interactTicks) {
-                    case 1:
-                        blinking.set(true);
-                        if (blocked) {
-                            mc.thePlayer.sendQueue.addToSendQueue(new C07PacketPlayerDigging(C07PacketPlayerDigging.Action.RELEASE_USE_ITEM, BlockPos.ORIGIN, DOWN));
-                            blocked = false;
-                        }
-                        break;
-                    case 2:
-                        handleInteractAndAttack(distance,true,true,swung);
-                        sendBlockPacket();
-                        blocked = true;
-                        releasePackets();
-                        break;
-                }
-                break;
-            case 11: // Buffer C
+            case 8: // Buffer C
                 if (interactTicks >= 3) {
                     interactTicks = 0;
                 }
