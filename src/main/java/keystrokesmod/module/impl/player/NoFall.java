@@ -17,8 +17,8 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 public class NoFall extends Module {
     public SliderSetting mode;
     private SliderSetting minFallDistance;
-    private ButtonSetting disableAdventure;
     private SliderSetting timerSpeed;
+    private ButtonSetting disableAdventure;
     private ButtonSetting ignoreVoid;
     private String[] modes = new String[]{"Spoof", "Packet A", "NoGround"};
     private double initialY;

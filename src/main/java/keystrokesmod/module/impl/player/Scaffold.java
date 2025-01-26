@@ -16,7 +16,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockAir;
 import net.minecraft.block.BlockTNT;
 import net.minecraft.client.settings.KeyBinding;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.play.client.C08PacketPlayerBlockPlacement;
@@ -29,6 +28,7 @@ import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.lwjgl.input.Mouse;
+import net.minecraft.init.Blocks;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -54,7 +54,7 @@ public class Scaffold extends Module {
     private MovingObjectPosition placeBlock;
     public AtomicInteger lastSlot = new AtomicInteger(-1);
     private String[] rotationModes = new String[]{"None", "Simple", "Strict", "Offset"};
-    private String[] fastScaffoldModes = new String[]{"Disabled", "Sprint", "Edge", "Jump A", "Jump B", "Jump C", "Same-Y"};
+    private String[] fastScaffoldModes = new String[]{"Disabled", "Sprint", "Edge", "Keep-Y A", "Keep-Y B", "Keep-Y C", "Same-Y"};
     private String[] precisionModes = new String[]{"Very low", "Low", "Moderate", "High", "Very high"};
     private String[] multiPlaceModes = new String[]{"Disabled", "1 extra", "2 extra"};
     private String[] fallbackRotationModes = new String[]{"None", "Closest", "Centered"};
@@ -155,6 +155,7 @@ public class Scaffold extends Module {
                 boolean s = mc.gameSettings.keyBindBack.isKeyDown();
                 boolean d = mc.gameSettings.keyBindRight.isKeyDown();
                 boolean diagonal = Utils.isDiagonal(false);
+
                 if (diagonal) {
                     yaw = mc.thePlayer.rotationYaw + 220;
                 } else {
@@ -174,6 +175,8 @@ public class Scaffold extends Module {
                         yaw = mc.thePlayer.rotationYaw - 315;
                     }
                 }
+
+
                 BlockPos playerPos = new BlockPos(mc.thePlayer.posX, mc.thePlayer.posY - 1, mc.thePlayer.posZ);
                 if (mc.theWorld.getBlockState(playerPos.east()).getBlock() != Blocks.air) {
                     yaw += 10;
@@ -184,6 +187,7 @@ public class Scaffold extends Module {
                 } else if (mc.theWorld.getBlockState(playerPos.north()).getBlock() != Blocks.air) {
                     yaw -= 5;
                 }
+
                 pitch = 85 + (float) (Math.random() * 1);
             }
 
@@ -197,11 +201,13 @@ public class Scaffold extends Module {
             event.setPitch(pitch);
         }
 
+
         if (isAboutToFall()) {
             int fallbackRotationInput = (int) fallbackRotation.getInput();
             if (fallbackRotationInput > 0) {
                 switch (fallbackRotationModes[fallbackRotationInput]) {
                     case "Closest":
+
                         if (placeBlock != null) {
                             float[] closestRotations = RotationUtils.getRotations(placeBlock.getBlockPos());
                             event.setYaw(closestRotations[0]);
@@ -209,6 +215,7 @@ public class Scaffold extends Module {
                         }
                         break;
                     case "Centered":
+
                         if (placeBlock != null) {
                             BlockPos blockPos = placeBlock.getBlockPos();
                             float[] centeredRotations = RotationUtils.getRotations(new BlockPos(blockPos.getX() + 0.5, blockPos.getY() + 0.5, blockPos.getZ() + 0.5));
@@ -475,10 +482,12 @@ public class Scaffold extends Module {
                 }
             }
         }
-        BlockPos[] additionalOffsets = { // adjust these for perfect placement
+        BlockPos[] additionalOffsets = {
                 pos.add(-1, 0, 0),
                 pos.add(1, 0, 0),
                 pos.add(0, 0, 1),
+                pos.add(0, 0, -1),
+                pos.add(0, -1, 0),
         };
         for (int lastCheck = 0; lastCheck < 2; lastCheck++) {
             for (BlockPos additionalPos : additionalOffsets) {
@@ -494,10 +503,12 @@ public class Scaffold extends Module {
                 }
             }
         }
-        BlockPos[] additionalOffsets2 = { // adjust these for perfect placement
+        BlockPos[] additionalOffsets2 = {
                 new BlockPos(-1, 0, 0),
                 new BlockPos(1, 0, 0),
                 new BlockPos(0, 0, 1),
+                new BlockPos(0, 0, -1),
+                new BlockPos(0, -1, 0),
         };
         for (int lastCheck = 0; lastCheck < 2; lastCheck++) {
             for (BlockPos additionalPos2 : additionalOffsets2) {
