@@ -19,14 +19,10 @@ public enum Theme {
 
     // new color shi
     Astolfo(new Color(255, 74, 255), new Color(74, 255, 255), new Color(255, 255, 255)), // 10
-    Sunset(new Color(255, 106, 0), new Color(211, 0, 0)), // 11
-    Ocean_Breeze(new Color(79, 179, 209), new Color(44, 141, 153)), // 12
-    Lime_Punch(new Color(167, 255, 87), new Color(62, 158, 59)), // 13
+    Ocean_Breeze(new Color(79, 179, 209), new Color(44, 141, 153)), // 12// 13
     Twilight(new Color(106, 63, 125), new Color(241, 167, 193)), // 14
     Minty_Fresh(new Color(62, 207, 119), new Color(86, 214, 214)), // 15
-    Fireworks(new Color(255, 42, 0), new Color(255, 235, 59), new Color(255, 138, 0)), // 16
     Galaxy(new Color(61, 13, 117), new Color(0, 161, 214), new Color(0, 0, 0)), // 17
-    Candy_Cane(new Color(255, 0, 0), new Color(255, 255, 255), new Color(255, 0, 0)), // 18
     Aurora(new Color(161, 161, 255), new Color(0, 153, 255), new Color(75, 0, 130)), // 19
     Tropical_Punch(new Color(255, 58, 74), new Color(253, 203, 88), new Color(87, 193, 229)), // 20
     Purple(new Color(157, 0, 255), new Color(191, 0, 255)); // 21
@@ -107,7 +103,7 @@ public enum Theme {
     public static String[] themes = new String[]{
             "Rainbow", "Cherry", "Cotton candy", "Flare", "Flower", "Gold", "Grayscale",
             "Royal", "Sky", "Vine", "Astolfo",
-            "Sunset", "Ocean Breeze", "Lime Punch", "Twilight", "Minty Fresh", "Fireworks",
-            "Galaxy", "Candy Cane", "Aurora", "Tropical Punch", "Purple"
+            "Ocean Breeze", "Twilight", "Minty Fresh",
+            "Galaxy", "Aurora", "Tropical Punch", "Purple"
     };
 }
