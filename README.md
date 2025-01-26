@@ -1,17 +1,10 @@
----
+# Raven bS
 
-# Raven bS+
+Raven B4, but for those who can't afford it, or too paranoid to get it. We highly value our user's privacy.
 
-This Fork of Raven bS Includes Updated Features, Currently in Beta. Some of These Features Are Autoblock, 7-Tick Lowhop, Offset Rotations, and Other Updated Bypasses.
+Quality features like AntiFireball, ItemESP, and more. No Bloat, no junk, based off b3, with the help of b4 src.
 
-![image](https://cdn.discordapp.com/attachments/1333063095420981281/1333132208004665414/image.png?ex=6797c79e&is=6796761e&hm=83f378d4e62f27e7e8d15a4b6c45387144320ca9da51d2f3769964e36c349338&)
+![image](https://github.com/user-attachments/assets/d2568078-6e45-46d7-8480-9f5d5eb6bc23)
 
-## Credits
-- **lquifi** 
-- **key**
-- **tinywifi**
-
-## Discord
-[Join Raven bS Discord!](https://discord.gg/ZWttByQD5N) 
-
---- 
+# Discord
+[https://discord.gg/ZWttByQD5N](https://discord.gg/ZWttByQD5N)
