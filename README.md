@@ -15,5 +15,3 @@ This fork of raven bS includes updated features, currently in beta. Some of thes
 [Join raven bS Discord!](https://discord.gg/ZWttByQD5N) 
 
 --- 
-
-Let me know if you'd like any further changes!
