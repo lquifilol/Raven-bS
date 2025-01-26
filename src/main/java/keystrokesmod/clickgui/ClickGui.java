@@ -101,7 +101,7 @@ public class ClickGui extends GuiScreen {
             this.drawCenteredString(this.fontRendererObj, "v", wd - w_c, h - 5, Utils.getChroma(2L, 900L));
             this.drawCenteredString(this.fontRendererObj, "e", wd - w_c, h + 5, Utils.getChroma(2L, 600L));
             this.drawCenteredString(this.fontRendererObj, "n", wd - w_c, h + 15, Utils.getChroma(2L, 300L));
-            this.drawCenteredString(this.fontRendererObj, "bS", wd + 1 + w_c, h + 30, Utils.getChroma(2L, 0L));
+            this.drawCenteredString(this.fontRendererObj, "bS+", wd + 1 + w_c, h + 30, Utils.getChroma(2L, 0L));
             this.drawVerticalLine(wd - 10 - w_c, h - 30, h + 43, Color.white.getRGB());
             this.drawVerticalLine(wd + 10 + w_c, h - 30, h + 43, Color.white.getRGB());
             if (this.logoSmoothLength != null) {
