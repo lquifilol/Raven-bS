@@ -145,9 +145,9 @@ public class BHop extends Module {
                         }
                         if (strafe) {
                             Utils.setSpeed(Utils.getHorizontalSpeed());
+                        }
                     }
+                    break;
                 }
-                break;
-        }
-    }}
+        }}
 }
