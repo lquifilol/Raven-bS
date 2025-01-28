@@ -54,7 +54,7 @@ public class Scaffold extends Module {
     private MovingObjectPosition placeBlock;
     public AtomicInteger lastSlot = new AtomicInteger(-1);
     private String[] rotationModes = new String[]{"None", "Simple", "Strict", "Offset"};
-    private String[] fastScaffoldModes = new String[]{"Disabled", "Sprint", "Edge", "Keep-Y A", "Keep-Y B", "Keep-Y C", "Same-Y"};
+    private String[] fastScaffoldModes = new String[]{"Disabled", "Sprint", "Edge", "Keep-Y A", "Keep-Y B", "Keep-Y C", "Same-Y", "Boost Test"};
     private String[] precisionModes = new String[]{"Very low", "Low", "Moderate", "High", "Very high"};
     private String[] multiPlaceModes = new String[]{"Disabled", "1 extra", "2 extra"};
     private String[] fallbackRotationModes = new String[]{"None", "Closest", "Centered"};
@@ -79,6 +79,8 @@ public class Scaffold extends Module {
     private EnumFacing[] facings = { EnumFacing.EAST, EnumFacing.WEST, EnumFacing.NORTH, EnumFacing.SOUTH, EnumFacing.UP };
     private BlockPos[] offsets = { new BlockPos(-1, 0, 0), new BlockPos(1, 0, 0), new BlockPos(0, 0, 1), new BlockPos(0, 0, -1), new BlockPos(0, -1, 0) };
     private ScaffoldBlockCount scaffoldBlockCount;
+    private boolean wasMoving = false;
+    private boolean spaceReleased = true;
     public Scaffold() {
         super("Scaffold", category.player);
         this.registerSetting(motion = new SliderSetting("Motion", "x", 1.0, 0.5, 1.2, 0.01));
@@ -135,6 +137,12 @@ public class Scaffold extends Module {
         if (slowOnEnable.isToggled()) {
             Utils.setSpeed(0.0);
         }
+        if (fastScaffold.getInput() == 7) { // Boost Test
+            mc.thePlayer.motionY = 0.42;
+            startPos = mc.thePlayer.posY;
+        }
+        wasMoving = false;
+        spaceReleased = true;
     }
 
     @SubscribeEvent
@@ -156,7 +164,7 @@ public class Scaffold extends Module {
                 boolean d = mc.gameSettings.keyBindRight.isKeyDown();
                 boolean diagonal = Utils.isDiagonal(false);
 
-                // Disable strafe for offset rotations temp
+                // Disable strafe keys when in offset mode
                 if (a || s || d) {
                     mc.gameSettings.keyBindLeft.setKeyBindState(mc.gameSettings.keyBindLeft.getKeyCode(), false);
                     mc.gameSettings.keyBindBack.setKeyBindState(mc.gameSettings.keyBindBack.getKeyCode(), false);
@@ -436,6 +444,21 @@ public class Scaffold extends Module {
             }
             previousBlock = placeData.blockPos.offset(placeData.getEnumFacing());
         }
+        boolean isMoving = Utils.isMoving();
+        boolean isSpaceDown = mc.gameSettings.keyBindJump.isKeyDown();
+    
+        if (fastScaffold.getInput() == 7 && isMoving && !wasMoving && spaceReleased) { // Boost Test Beta
+            mc.thePlayer.motionY = 0.42;
+            startPos = mc.thePlayer.posY;
+        }
+    
+        if (!isSpaceDown) {
+            spaceReleased = true;
+        } else {
+            spaceReleased = false;
+        }
+    
+        wasMoving = isMoving;
     }
 
     @SubscribeEvent
@@ -596,6 +619,8 @@ public class Scaffold extends Module {
                 case 5:
                 case 6:
                     return keepYPosition();
+                case 7: // Boost Test
+                    return true;
             }
         }
         return false;
@@ -606,7 +631,7 @@ public class Scaffold extends Module {
     }
 
     private boolean keepYPosition() {
-        return this.isEnabled() && Utils.keysDown() && (fastScaffold.getInput() == 4 || fastScaffold.getInput() == 3 || fastScaffold.getInput() == 5 || fastScaffold.getInput() == 6) && (!Utils.jumpDown() || fastScaffold.getInput() == 6) && (!fastOnRMB.isToggled() || Mouse.isButtonDown(1)) && (!blockAbove() || fastScaffold.getInput() == 6);
+        return this.isEnabled() && Utils.keysDown() && (fastScaffold.getInput() == 4 || fastScaffold.getInput() == 3 || fastScaffold.getInput() == 5 || fastScaffold.getInput() == 6 || fastScaffold.getInput() == 7) && (!Utils.jumpDown() || fastScaffold.getInput() == 6) && (!fastOnRMB.isToggled() || Mouse.isButtonDown(1)) && (!blockAbove() || fastScaffold.getInput() == 6);
     }
 
     public boolean safewalk() {
