@@ -156,6 +156,13 @@ public class Scaffold extends Module {
                 boolean d = mc.gameSettings.keyBindRight.isKeyDown();
                 boolean diagonal = Utils.isDiagonal(false);
 
+                // Disable strafe for offset rotations temp
+                if (a || s || d) {
+                    mc.gameSettings.keyBindLeft.setKeyBindState(mc.gameSettings.keyBindLeft.getKeyCode(), false);
+                    mc.gameSettings.keyBindBack.setKeyBindState(mc.gameSettings.keyBindBack.getKeyCode(), false);
+                    mc.gameSettings.keyBindRight.setKeyBindState(mc.gameSettings.keyBindRight.getKeyCode(), false);
+                }
+
                 if (diagonal) {
                     yaw = mc.thePlayer.rotationYaw + 220;
                 } else {
