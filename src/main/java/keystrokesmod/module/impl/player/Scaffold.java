@@ -51,6 +51,7 @@ public class Scaffold extends Module {
     private ButtonSetting delayOnJump;
     private ButtonSetting silentSwing;
     public ButtonSetting tower;
+    private ButtonSetting disableStrafing;
     private MovingObjectPosition placeBlock;
     public AtomicInteger lastSlot = new AtomicInteger(-1);
     private String[] rotationModes = new String[]{"None", "Simple", "Strict", "Offset"};
@@ -101,6 +102,7 @@ public class Scaffold extends Module {
         this.registerSetting(silentSwing = new ButtonSetting("Silent swing", false));
         this.registerSetting(slowOnEnable = new ButtonSetting("Slow on enable", false));
         this.registerSetting(tower = new ButtonSetting("Tower", false));
+        this.registerSetting(disableStrafing = new ButtonSetting("Disable strafing", false));
     }
 
     public void onDisable() {
@@ -157,6 +159,18 @@ public class Scaffold extends Module {
             float yaw = usePlaceYaw ? placeYaw : getYaw();
             float pitch = usePlaceYaw ? placePitch : 85;
 
+            if (disableStrafing.isToggled()) {
+                boolean a = mc.gameSettings.keyBindLeft.isKeyDown();
+                boolean s = mc.gameSettings.keyBindBack.isKeyDown();
+                boolean d = mc.gameSettings.keyBindRight.isKeyDown();
+
+                if (a || s || d) {
+                    mc.gameSettings.keyBindLeft.setKeyBindState(mc.gameSettings.keyBindLeft.getKeyCode(), false);
+                    mc.gameSettings.keyBindBack.setKeyBindState(mc.gameSettings.keyBindBack.getKeyCode(), false);
+                    mc.gameSettings.keyBindRight.setKeyBindState(mc.gameSettings.keyBindRight.getKeyCode(), false);
+                }
+            }
+
             if (rotationInput == 3) { // Offset rotation
                 boolean w = mc.gameSettings.keyBindForward.isKeyDown();
                 boolean a = mc.gameSettings.keyBindLeft.isKeyDown();
@@ -164,30 +178,23 @@ public class Scaffold extends Module {
                 boolean d = mc.gameSettings.keyBindRight.isKeyDown();
                 boolean diagonal = Utils.isDiagonal(false);
 
-                // Disable strafe keys when in offset mode
-                if (a || s || d) {
-                    mc.gameSettings.keyBindLeft.setKeyBindState(mc.gameSettings.keyBindLeft.getKeyCode(), false);
-                    mc.gameSettings.keyBindBack.setKeyBindState(mc.gameSettings.keyBindBack.getKeyCode(), false);
-                    mc.gameSettings.keyBindRight.setKeyBindState(mc.gameSettings.keyBindRight.getKeyCode(), false);
-                }
-
                 if (diagonal) {
-                    yaw = mc.thePlayer.rotationYaw + 220;
+                    yaw = Math.round(mc.thePlayer.rotationYaw + 220);
                 } else {
                     if ((w && a && s && d) || (w && !a && !s && !d) || (w && !a && s && !d)) {
-                        yaw = mc.thePlayer.rotationYaw - 120;
+                        yaw = Math.round(mc.thePlayer.rotationYaw - 120);
                     } else if (w && !a && !s && d) {
-                        yaw = mc.thePlayer.rotationYaw + 185;
+                        yaw = Math.round(mc.thePlayer.rotationYaw + 185);
                     } else if (w && a && !s && !d) {
-                        yaw = mc.thePlayer.rotationYaw - 185;
+                        yaw = Math.round(mc.thePlayer.rotationYaw - 185);
                     } else if (!w && a && !s && !d) {
-                        yaw = mc.thePlayer.rotationYaw - 270;
+                        yaw = Math.round(mc.thePlayer.rotationYaw - 270);
                     } else if (!w && a && s && !d) {
-                        yaw = mc.thePlayer.rotationYaw - 310;
+                        yaw = Math.round(mc.thePlayer.rotationYaw - 310);
                     } else if (!w && !a && !s && d) {
-                        yaw = mc.thePlayer.rotationYaw - 90;
+                        yaw = Math.round(mc.thePlayer.rotationYaw - 90);
                     } else if (!w && !a && s && d) {
-                        yaw = mc.thePlayer.rotationYaw - 315;
+                        yaw = Math.round(mc.thePlayer.rotationYaw - 315);
                     }
                 }
 
