@@ -52,6 +52,8 @@ public class Scaffold extends Module {
     private ButtonSetting silentSwing;
     public ButtonSetting tower;
     private ButtonSetting disableStrafing;
+    private SliderSetting offsetForwardYaw;
+    private SliderSetting offsetDiagonalYaw;
     private MovingObjectPosition placeBlock;
     public AtomicInteger lastSlot = new AtomicInteger(-1);
     private String[] rotationModes = new String[]{"None", "Simple", "Strict", "Offset"};
@@ -82,6 +84,7 @@ public class Scaffold extends Module {
     private ScaffoldBlockCount scaffoldBlockCount;
     private boolean wasMoving = false;
     private boolean spaceReleased = true;
+    private ButtonSetting adjustToSurroundings;
     public Scaffold() {
         super("Scaffold", category.player);
         this.registerSetting(motion = new SliderSetting("Motion", "x", 1.0, 0.5, 1.2, 0.01));
@@ -103,6 +106,9 @@ public class Scaffold extends Module {
         this.registerSetting(slowOnEnable = new ButtonSetting("Slow on enable", false));
         this.registerSetting(tower = new ButtonSetting("Tower", false));
         this.registerSetting(disableStrafing = new ButtonSetting("Disable strafing", false));
+        this.registerSetting(offsetForwardYaw = new SliderSetting("Offset Forward Yaw", 120, 0, 360, 5));
+        this.registerSetting(offsetDiagonalYaw = new SliderSetting("Offset Diagonal Yaw", 220, 0, 360, 5));
+        this.registerSetting(adjustToSurroundings = new ButtonSetting("Adjust to surroundings", true));
     }
 
     public void onDisable() {
@@ -179,10 +185,10 @@ public class Scaffold extends Module {
                 boolean diagonal = Utils.isDiagonal(false);
 
                 if (diagonal) {
-                    yaw = Math.round(mc.thePlayer.rotationYaw + 220);
+                    yaw = Math.round(mc.thePlayer.rotationYaw + offsetDiagonalYaw.getInput());
                 } else {
                     if ((w && a && s && d) || (w && !a && !s && !d) || (w && !a && s && !d)) {
-                        yaw = Math.round(mc.thePlayer.rotationYaw - 120);
+                        yaw = Math.round(mc.thePlayer.rotationYaw - offsetForwardYaw.getInput());
                     } else if (w && !a && !s && d) {
                         yaw = Math.round(mc.thePlayer.rotationYaw + 185);
                     } else if (w && a && !s && !d) {
@@ -198,16 +204,17 @@ public class Scaffold extends Module {
                     }
                 }
 
-
-                BlockPos playerPos = new BlockPos(mc.thePlayer.posX, mc.thePlayer.posY - 1, mc.thePlayer.posZ);
-                if (mc.theWorld.getBlockState(playerPos.east()).getBlock() != Blocks.air) {
-                    yaw += 10;
-                } else if (mc.theWorld.getBlockState(playerPos.west()).getBlock() != Blocks.air) {
-                    yaw -= 10;
-                } else if (mc.theWorld.getBlockState(playerPos.south()).getBlock() != Blocks.air) {
-                    yaw += 5;
-                } else if (mc.theWorld.getBlockState(playerPos.north()).getBlock() != Blocks.air) {
-                    yaw -= 5;
+                if (adjustToSurroundings.isToggled()) {
+                    BlockPos playerPos = new BlockPos(mc.thePlayer.posX, mc.thePlayer.posY - 1, mc.thePlayer.posZ);
+                    if (mc.theWorld.getBlockState(playerPos.east()).getBlock() != Blocks.air) {
+                        yaw += 10;
+                    } else if (mc.theWorld.getBlockState(playerPos.west()).getBlock() != Blocks.air) {
+                        yaw -= 10;
+                    } else if (mc.theWorld.getBlockState(playerPos.south()).getBlock() != Blocks.air) {
+                        yaw += 5;
+                    } else if (mc.theWorld.getBlockState(playerPos.north()).getBlock() != Blocks.air) {
+                        yaw -= 5;
+                    }
                 }
 
                 pitch = 85 + (float) (Math.random() * 1);
