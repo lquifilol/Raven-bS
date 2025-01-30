@@ -57,7 +57,7 @@ public class Scaffold extends Module {
     private MovingObjectPosition placeBlock;
     public AtomicInteger lastSlot = new AtomicInteger(-1);
     private String[] rotationModes = new String[]{"None", "Simple", "Strict", "Offset"};
-    private String[] fastScaffoldModes = new String[]{"Disabled", "Sprint", "Edge", "Keep-Y A", "Keep-Y", "Keep-Y C", "Same-Y", "Boost Test"};
+    private String[] fastScaffoldModes = new String[]{"Disabled", "Sprint", "Edge", "Keep-Y A", "Keep-Y B", "Keep-Y C", "Same-Y", "Boost Test"};
     private String[] precisionModes = new String[]{"Very low", "Low", "Moderate", "High", "Very high"};
     private String[] multiPlaceModes = new String[]{"Disabled", "1 extra", "2 extra"};
     private String[] fallbackRotationModes = new String[]{"None", "Closest", "Centered"};
