@@ -20,7 +20,7 @@ public class NoFall extends Module {
     private SliderSetting timerSpeed;
     private ButtonSetting disableAdventure;
     private ButtonSetting ignoreVoid;
-    private String[] modes = new String[]{"Spoof", "Packet A", "NoGround"};
+    private String[] modes = new String[]{"Spoof", "Packet", "NoGround"};
     private double initialY;
 
     public NoFall() {
